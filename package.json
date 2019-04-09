@@ -1,0 +1,25 @@
+{
+  "name": "real-time-web-1819",
+  "version": "1.0.0",
+  "description": "real-time-web-1819",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peppequint/real-time-web-1819.git"
+  },
+  "author": "Peppe-Quint Boogaard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/peppequint/real-time-web-1819/issues"
+  },
+  "homepage": "https://github.com/peppequint/real-time-web-1819#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11"
+  }
+}
