@@ -1,9 +1,8 @@
-const socket = io();
 const form = document.querySelector("form");
 const input = document.querySelector("#m");
 
 (function() {
-  var socket = io();
+  const socket = io();
 
   form.addEventListener("submit", e => {
     e.preventDefault();
@@ -12,8 +11,25 @@ const input = document.querySelector("#m");
     return false;
   });
 
+  socket.on("username", msg => {
+    const newLine = document.createElement("li");
+    newLine.textContent = msg;
+    newLine.setAttribute("class", "username");
+
+    document.querySelector("#messages").append(newLine);
+  });
+
   socket.on("chat message", msg => {
     const newLine = document.createElement("li");
+    newLine.textContent = msg;
+    newLine.setAttribute("class", "user-message");
+
+    document.querySelector("#messages").append(newLine);
+  });
+
+  socket.on("bot message", msg => {
+    const newLine = document.createElement("li");
+    newLine.setAttribute("class", "bot-message");
     newLine.textContent = msg;
 
     document.querySelector("#messages").append(newLine);

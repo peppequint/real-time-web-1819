@@ -8,6 +8,7 @@
 }
 
 body {
+  background-color: #f6f7fb;
   font: 13px Helvetica, Arial;
   margin: 0;
   width: 100%;
@@ -21,38 +22,97 @@ h5 {
   margin: 0;
 }
 
-form {
-  background: #000;
-  bottom: 0;
-  padding: 3px;
-  position: fixed;
+main {
+  align-items: flex-start;
+  display: flex;
+  height: 84vh;
+  justify-content: center;
+  overflow: scroll;
   width: 100%;
-}
-
-form input {
-  border: 0;
-  padding: 10px;
-  width: 90%;
-  margin-right: 0.5%;
-}
-
-form button {
-  width: 9%;
-  background: rgb(130, 224, 255);
-  border: none;
-  padding: 10px;
 }
 
 #messages {
   list-style-type: none;
   margin: 0;
+  margin-top: 1.5rem;
+  max-width: 600px;
   padding: 0;
+  width: 90%;
 }
 
-#messages li {
-  padding: 5px 10px;
+.user-message,
+.username {
+  font-family: "Avenir", sans-serif;
 }
 
-#messages li:nth-child(odd) {
-  background: #eee;
+.username {
+  font-style: oblique;
+  font-weight: bold;
+  margin: 1rem 0 0 1.25rem;
+}
+
+.own-message {
+  background: red;
+}
+
+.user-message {
+  background: #45adf2;
+  border-radius: 0px 1rem 1rem 1rem;
+  color: #f6f7fb;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin: 1rem 0;
+  padding: 1.5rem 1.5rem;
+}
+
+.bot-message {
+  background: none;
+  color: #89878b;
+  font-weight: bold;
+  margin: 0.5rem 0;
+}
+
+footer {
+  align-items: center;
+  background: #f6f7fb;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0 5rem;
+  position: fixed;
+  width: 100%;
+}
+
+form {
+  bottom: 5%;
+  border-radius: 15px;
+  max-width: 600px;
+  width: 90%;
+}
+
+form input {
+  border: 5px solid #41e17f;
+  border-radius: 15px 0px 0px 15px;
+  background: none;
+  color: #89878b;
+  font-size: 0.9rem;
+  padding: 20px;
+  width: 80%;
+}
+
+form input:focus {
+  outline: none;
+}
+
+form button {
+  background: #41e17f;
+  border: 5px solid #41e17f;
+  border-left: none;
+  color: #f6f7fb;
+  border-radius: 0px 15px 15px 0px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 20px;
+  text-transform: uppercase;
+  width: 20%;
 }

@@ -2,13 +2,15 @@
 <html lang="en" dir="ltr">
 	<head>
 		<% include ../partials/head %>
-		<title>Real-time app</title>
+		<title>Real-time Web</title>
 	</head>
 	<body>
-		<ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
+		<main><ul id="messages"></ul></main>
+    <footer>
+			<form action="">
+	      <input id="m" autocomplete="off" /><button>Send</button>
+	    </form>
+    </footer>
 		<script src="/socket.io/socket.io.js"></script>
 		<script type="text/javascript" src="./../../js/index.js"></script>
 	</body>

@@ -18,8 +18,10 @@
   },
   "homepage": "https://github.com/peppequint/real-time-web-1819#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "isomorphic-fetch": "^2.2.1",
     "socket.io": "^2.2.0"
   },
   "devDependencies": {
