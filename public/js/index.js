@@ -28,10 +28,13 @@ const input = document.querySelector("#m");
   });
 
   socket.on("bot message", msg => {
-    const newLine = document.createElement("li");
-    newLine.setAttribute("class", "bot-message");
-    newLine.textContent = msg;
+    msg.map(x => {
+      const newLine = document.createElement("li");
+      newLine.setAttribute("class", "bot-message");
+      newLine.textContent = x;
+      console.log(x);
 
-    document.querySelector("#messages").append(newLine);
+      document.querySelector("#messages").append(newLine);
+    });
   });
 })();

@@ -19,33 +19,104 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", socket => {
-  let user = socket.id;
-  let username;
   axios
-    .post("https://api.codetunnel.net/random-nick", {
+    .post("https://www.anwb.nl/feeds/gethf", {
       dataType: "json"
     })
     .then(response => {
-      console.log("test");
-      username = response.data.nickname;
+      let anwbData = response.data.roadEntries.map(x => {
+        const data = {
+          road: x.road,
+          events: {
+            traffic: {
+              from:
+                x.events.trafficJams &&
+                x.events.trafficJams[0] &&
+                x.events.trafficJams[0].from
+                  ? x.events.trafficJams[0].from
+                  : null,
+              to:
+                x.events.trafficJams &&
+                x.events.trafficJams[0] &&
+                x.events.trafficJams[0].to
+                  ? x.events.trafficJams[0].to
+                  : null,
+              delay:
+                x.events.trafficJams &&
+                x.events.trafficJams[0] &&
+                x.events.trafficJams[0].delay
+                  ? x.events.trafficJams[0].delay
+                  : null,
+              distance:
+                x.events.trafficJams &&
+                x.events.trafficJams[0] &&
+                x.events.trafficJams[0].distance
+                  ? x.events.trafficJams[0].distance
+                  : null
+            },
+            work: {
+              from:
+                x.events.roadWorks &&
+                x.events.roadWorks[0] &&
+                x.events.roadWorks[0].from
+                  ? x.events.roadWorks[0].from
+                  : null,
+              to:
+                x.events.roadWorks &&
+                x.events.roadWorks[0] &&
+                x.events.roadWorks[0].to
+                  ? x.events.roadWorks[0].to
+                  : null,
+              reason:
+                x.events.roadWorks &&
+                x.events.roadWorks[0] &&
+                x.events.roadWorks[0].reason
+                  ? x.events.roadWorks[0].reason
+                  : null
+            },
+            radar: {
+              from:
+                x.events.radars && x.events.radars[0] && x.events.radars[0].from
+                  ? x.events.radars[0].from
+                  : null,
+              to:
+                x.events.radars && x.events.radars[0] && x.events.radars[0].to
+                  ? x.events.radars[0].to
+                  : null,
+              reason:
+                x.events.radars &&
+                x.events.radars[0] &&
+                x.events.radars[0].reason
+                  ? x.events.radars[0].reason
+                  : null
+            }
+          }
+        };
+        return data;
+      });
+
       io.emit(
         "bot message",
-        response.data.nickname + " connected to the chat!"
-      );
-      console.log(response.data.nickname + " connected to the chat!");
-    });
 
-  socket.on("chat message", msg => {
-    if (msg) {
-      console.log("Message: " + msg);
-      io.emit("username", username + " says..");
-      io.emit("chat message", msg);
-    }
-  });
-  console.log("A user connected");
-  socket.on("disconnect", () => {
-    console.log("A user disconnected");
-  });
+        anwbData.map(x => {
+          return x.road;
+        })
+
+        // list of traffic jams
+      );
+    });
+  //
+  // socket.on("chat message", msg => {
+  //   if (msg) {
+  //     console.log("Message: " + msg);
+  //     io.emit("username", username + " says..");
+  //     io.emit("chat message", msg);
+  //   }
+  // });
+  // console.log("A user connected");
+  // socket.on("disconnect", () => {
+  //   console.log("A user disconnected");
+  // });
 });
 
 http.listen(port, () => {
