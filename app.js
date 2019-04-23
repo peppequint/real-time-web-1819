@@ -24,70 +24,74 @@ io.on("connection", socket => {
       dataType: "json"
     })
     .then(response => {
-      let anwbData = response.data.roadEntries.map(x => {
+      let dataAnwb = response.data.roadEntries.map(anwb => {
         const data = {
-          road: x.road,
+          road: anwb.road,
           events: {
             traffic: {
               from:
-                x.events.trafficJams &&
-                x.events.trafficJams[0] &&
-                x.events.trafficJams[0].from
-                  ? x.events.trafficJams[0].from
+                anwb.events.trafficJams &&
+                anwb.events.trafficJams[0] &&
+                anwb.events.trafficJams[0].from
+                  ? anwb.events.trafficJams[0].from
                   : null,
               to:
-                x.events.trafficJams &&
-                x.events.trafficJams[0] &&
-                x.events.trafficJams[0].to
-                  ? x.events.trafficJams[0].to
+                anwb.events.trafficJams &&
+                anwb.events.trafficJams[0] &&
+                anwb.events.trafficJams[0].to
+                  ? anwb.events.trafficJams[0].to
                   : null,
               delay:
-                x.events.trafficJams &&
-                x.events.trafficJams[0] &&
-                x.events.trafficJams[0].delay
-                  ? x.events.trafficJams[0].delay
+                anwb.events.trafficJams &&
+                anwb.events.trafficJams[0] &&
+                anwb.events.trafficJams[0].delay
+                  ? anwb.events.trafficJams[0].delay
                   : null,
               distance:
-                x.events.trafficJams &&
-                x.events.trafficJams[0] &&
-                x.events.trafficJams[0].distance
-                  ? x.events.trafficJams[0].distance
+                anwb.events.trafficJams &&
+                anwb.events.trafficJams[0] &&
+                anwb.events.trafficJams[0].distance
+                  ? anwb.events.trafficJams[0].distance
                   : null
             },
             work: {
               from:
-                x.events.roadWorks &&
-                x.events.roadWorks[0] &&
-                x.events.roadWorks[0].from
-                  ? x.events.roadWorks[0].from
+                anwb.events.roadWorks &&
+                anwb.events.roadWorks[0] &&
+                anwb.events.roadWorks[0].from
+                  ? anwb.events.roadWorks[0].from
                   : null,
               to:
-                x.events.roadWorks &&
-                x.events.roadWorks[0] &&
-                x.events.roadWorks[0].to
-                  ? x.events.roadWorks[0].to
+                anwb.events.roadWorks &&
+                anwb.events.roadWorks[0] &&
+                anwb.events.roadWorks[0].to
+                  ? anwb.events.roadWorks[0].to
                   : null,
               reason:
-                x.events.roadWorks &&
-                x.events.roadWorks[0] &&
-                x.events.roadWorks[0].reason
-                  ? x.events.roadWorks[0].reason
+                anwb.events.roadWorks &&
+                anwb.events.roadWorks[0] &&
+                anwb.events.roadWorks[0].reason
+                  ? anwb.events.roadWorks[0].reason
                   : null
             },
             radar: {
               from:
-                x.events.radars && x.events.radars[0] && x.events.radars[0].from
-                  ? x.events.radars[0].from
+                anwb.events.radars &&
+                anwb.events.radars[0] &&
+                anwb.events.radars[0].from
+                  ? anwb.events.radars[0].from
                   : null,
               to:
-                x.events.radars && x.events.radars[0] && x.events.radars[0].to
-                  ? x.events.radars[0].to
+                anwb.events.radars &&
+                anwb.events.radars[0] &&
+                anwb.events.radars[0].to
+                  ? anwb.events.radars[0].to
                   : null,
               reason:
-                x.events.radars &&
-                x.events.radars[0] &&
-                x.events.radars[0].reason
-                  ? x.events.radars[0].reason
+                anwb.events.radars &&
+                anwb.events.radars[0] &&
+                anwb.events.radars[0].reason
+                  ? anwb.events.radars[0].reason
                   : null
             }
           }
@@ -95,28 +99,39 @@ io.on("connection", socket => {
         return data;
       });
 
+      let dataTime = response.data.dateTime.split(", ");
+      io.emit("timestamp", dataTime[1]);
+
+      let totalDistance = 0;
+      dataAnwb.map(data => {
+        let distance = data.events.traffic.distance;
+
+        if (distance === null) {
+          console.log("Geen file op de " + data.road);
+        } else {
+          console.log(
+            "Er staat " + distance + " meter file op de " + data.road
+          );
+          totalDistance += distance;
+        }
+      });
       io.emit(
-        "bot message",
+        "traffic distance",
 
-        anwbData.map(x => {
-          return x.road;
+        totalDistance,
+        console.log("Totaal aantal meters file: " + totalDistance)
+      );
+
+      io.emit(
+        "traffic jams",
+        dataAnwb.map(data => {
+          return {
+            road: data.road,
+            distance: data.events.traffic.distance
+          };
         })
-
-        // list of traffic jams
       );
     });
-  //
-  // socket.on("chat message", msg => {
-  //   if (msg) {
-  //     console.log("Message: " + msg);
-  //     io.emit("username", username + " says..");
-  //     io.emit("chat message", msg);
-  //   }
-  // });
-  // console.log("A user connected");
-  // socket.on("disconnect", () => {
-  //   console.log("A user disconnected");
-  // });
 });
 
 http.listen(port, () => {

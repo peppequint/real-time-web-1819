@@ -27,14 +27,25 @@ const input = document.querySelector("#m");
     document.querySelector("#messages").append(newLine);
   });
 
-  socket.on("bot message", msg => {
-    msg.map(x => {
-      const newLine = document.createElement("li");
-      newLine.setAttribute("class", "bot-message");
-      newLine.textContent = x;
-      console.log(x);
+  socket.on("traffic distance", meters => {
+    console.log(meters);
+    const distance = document.createElement("h2");
+    distance.setAttribute("class", "distance");
+    distance.textContent = "Total distance is " + meters + " meters";
 
-      document.querySelector("#messages").append(newLine);
-    });
+    document.querySelector("#messages").append(distance);
+  });
+
+  socket.on("timestamp", time => {
+    console.log(time);
+    const timestamp = document.createElement("h2");
+    timestamp.setAttribute("class", "timestamp");
+    timestamp.textContent = "Today at " + time;
+
+    document.querySelector("#messages").append(timestamp);
+  });
+
+  socket.on("traffic jams", traffic => {
+    console.log(traffic);
   });
 })();
