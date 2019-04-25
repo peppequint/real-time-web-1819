@@ -60,16 +60,17 @@ header {
   flex-wrap: wrap-reverse;
   height: 10vh;
   justify-content: space-between;
-  margin-top: 1rem;
+  margin: 1.5rem auto;
 }
 
 main {
   align-items: flex-start;
   justify-content: center;
+  margin-bottom: 1.5rem;
 }
 
 .timestamp,
-.distance {
+.total-distance {
   width: 50%;
 }
 
@@ -77,11 +78,15 @@ main {
   text-align: right;
 }
 
+.action {
+  max-width: 200px;
+  width: 100%;
+}
+
 .control-btn {
   border: 2px solid #424242;
   border-radius: 15px;
   margin-top: 1rem;
-  max-width: 175px;
   padding: 1rem 2rem;
   width: 100%;
 }
@@ -97,7 +102,6 @@ main {
 #list {
   list-style-type: none;
   margin: 0;
-  margin-top: 1.5rem;
   padding: 0;
   width: 100%;
 }
@@ -106,7 +110,7 @@ main {
   background-color: #fff;
   border-radius: 15px;
   display: grid;
-  grid-template-columns: 75px 1fr 1fr;
+  grid-template-columns: 100px 1fr 1fr;
   grid-template-rows: 50% 50%;
   height: 75px;
   margin: 1rem auto;
