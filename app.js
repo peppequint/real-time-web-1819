@@ -28,6 +28,18 @@ app.get("/", async (req, res) => {
   }
 });
 
+app.post("/werkzaamheden", async (req, res) => {
+  try {
+    const data = await dataAnwb().then(render => {
+      res.render("pages/index", {
+        anwb: render
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 function dataAnwb() {
   return new Promise(async (resolve, reject) => {
     try {
@@ -118,10 +130,9 @@ function filterAnwb(data) {
       };
       return data;
     });
-    // console.log(timestamp);
-    // console.log(dataAnwb);
+
     let filteredData = dataAnwb.concat(timestamp);
-    // console.log(filteredData[filteredData.length - 1]);
+
     resolve(filteredData);
   });
 }
@@ -134,6 +145,7 @@ function timeStamp(data) {
 
 function totalDistance(data) {
   data.pop();
+  console.log(data);
   let totalDistance = 0;
 
   data.map(data => {
@@ -163,6 +175,17 @@ io.on("connection", async function openRequest() {
     console.log(error);
   }
 });
+
+function sendData(data) {
+  dataAnwb()
+    // .then(data => totalDistance(data))
+    .then(data => {
+      io.emit("traffic distance", data);
+      // console.log(data);
+    });
+}
+
+setInterval(sendData, 2000);
 
 http.listen(port, () => {
   console.log(`App running on port ${port}!`);
