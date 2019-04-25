@@ -9,6 +9,7 @@
 
 body {
   background-color: #f6f7fb;
+  color: #424242;
   font-family: "Avenir", sans-serif;
   font-size: 13px;
   letter-spacing: 1px;
@@ -28,20 +29,77 @@ p {
   margin: 0;
 }
 
+button {
+  background: none;
+  border: none;
+  color: #424242;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+button:hover,
+button:focus {
+  outline: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+header,
+main {
+  display: flex;
+  margin: 0 auto;
+  max-width: 650px;
+  width: 100%;
+}
+
+header {
+  align-items: center;
+  flex-wrap: wrap-reverse;
+  height: 10vh;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
 main {
   align-items: flex-start;
-  display: flex;
   justify-content: center;
+}
+
+.timestamp,
+.distance {
+  width: 50%;
+}
+
+.distance {
+  text-align: right;
+}
+
+.control-btn {
+  border: 2px solid #424242;
+  border-radius: 15px;
+  margin-top: 1rem;
+  max-width: 175px;
+  padding: 1rem 2rem;
   width: 100%;
+}
+
+.inactive-btn {
+  opacity: 0.5;
+}
+
+.inactive-btn:hover {
+  cursor: not-allowed;
 }
 
 #list {
   list-style-type: none;
   margin: 0;
   margin-top: 1.5rem;
-  max-width: 600px;
   padding: 0;
-  width: 90%;
+  width: 100%;
 }
 
 .road-information {
@@ -76,35 +134,32 @@ main {
   background-color: #f7be47;
 }
 
-.location,
-.properties {
+.location {
+  align-self: center;
+  font-weight: bold;
+  grid-column: 2/4;
+  grid-row: 1/2;
   margin-left: 1.5rem;
 }
 
-.location {
-  align-self: center;
-  grid-column: 2/4;
-  grid-row: 1/2;
-}
-
-.properties {
-  align-self: center;
-  display: flex;
-  flex-direction: row;
-  grid-column: 2/4;
-  grid-row: 2/3;
-}
-
-.properties > p {
+.road-information > p {
   align-items: center;
   color: rgba(0, 0, 0, 0.54);
   display: flex;
-  font-weight: bold;
-  margin-right: auto;
+  margin-left: 1.5rem;
+  margin-right: 4rem;
   text-align: left;
 }
 
-.properties > p > .material-icons.md-dark {
+.road-information > p > .material-icons.md-dark {
   color: rgba(0, 0, 0, 0.54);
   margin-right: 1rem;
+}
+
+.distance {
+  grid-column: 2/3;
+}
+
+.delay {
+  grid-column: 3/4;
 }
