@@ -25,10 +25,10 @@ function traffic(data) {
   const trafficJam = data.data.forEach(traffic => {
     if (traffic.events.traffic.delay !== null) {
       const road = document.createElement("li");
-      if (traffic.road.startsWith("A", 0)) {
+      if (traffic.road.length > 4) {
         road.setAttribute("class", "road-information ");
         road.innerHTML = `
-            <span class='road road-red'>${traffic.road}</span>
+            <span class='road road-blue'>${traffic.road}</span>
             <p class='location'>Van ${traffic.events.traffic.from} naar ${
           traffic.events.traffic.to
         }</p>
@@ -41,6 +41,18 @@ function traffic(data) {
         road.setAttribute("class", "road-information ");
         road.innerHTML = `
             <span class='road road-yellow'>${traffic.road}</span>
+            <p class='location'>Van ${traffic.events.traffic.from} naar ${
+          traffic.events.traffic.to
+        }</p>
+            <p class='distance'><i class="material-icons md-dark">settings_ethernet</i>
+            ${traffic.events.traffic.distance / 1000} kilometer</p>
+            <p class='delay'><i class="material-icons md-dark">access_time</i>
+            ${traffic.events.traffic.delay / 60} minuten</p>
+          `;
+      } else if (traffic.road.startsWith("A", 0)) {
+        road.setAttribute("class", "road-information ");
+        road.innerHTML = `
+            <span class='road road-red'>${traffic.road}</span>
             <p class='location'>Van ${traffic.events.traffic.from} naar ${
           traffic.events.traffic.to
         }</p>
