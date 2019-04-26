@@ -58,7 +58,6 @@ main {
 header {
   align-items: center;
   flex-wrap: wrap-reverse;
-  height: 10vh;
   justify-content: space-between;
   margin: 1.5rem auto;
 }
@@ -78,17 +77,17 @@ main {
   text-align: right;
 }
 
-.action {
-  max-width: 200px;
-  width: 100%;
-}
-
 .control-btn {
   border: 2px solid #424242;
   border-radius: 15px;
   margin-top: 1rem;
   padding: 1rem 2rem;
   width: 100%;
+}
+
+.control-btn:nth-child(n + 2) {
+  opacity: 0;
+  display: none;
 }
 
 .inactive-btn {
@@ -136,6 +135,10 @@ main {
 
 .road-yellow {
   background-color: #f7be47;
+}
+
+.road-blue {
+  background-color: #2a92d5;
 }
 
 .location {
