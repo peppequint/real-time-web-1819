@@ -137,55 +137,34 @@ function filterAnwb(data) {
   });
 }
 
-function timeStamp(data) {
-  const timestamp = data[data.length - 1];
-  console.log(timestamp);
-  return timestamp;
-}
+io.on("connection", async function(socket) {
+  async function request() {
+    try {
+      let data = await dataAnwb().then(data => filterAnwb(data));
 
-function totalDistance(data) {
-  data.pop();
-  console.log(data);
-  let totalDistance = 0;
-
-  data.map(data => {
-    let distance = data.events.traffic.distance;
-
-    if (distance === null) {
-      console.log("Geen file op de " + data.road);
-    } else {
-      console.log("Er staat " + distance + " meter file op de " + data.road);
-      totalDistance += distance;
+      return data;
+    } catch (error) {
+      console.log(error);
     }
-  });
-  return totalDistance;
-}
-
-io.on("connection", async function openRequest() {
-  try {
-    let data = await dataAnwb()
-      .then(data => filterAnwb(data))
-      .then(data => {
-        io.emit("timestamp", timeStamp(data));
-        io.emit("traffic distance", totalDistance(data));
-        io.emit("traffic jams", data);
-      });
-    return data;
-  } catch (error) {
-    console.log(error);
   }
-});
 
-function sendData(data) {
-  dataAnwb()
-    // .then(data => totalDistance(data))
-    .then(data => {
-      io.emit("traffic distance", data);
-      // console.log(data);
+  async function call() {
+    console.log("New update");
+    let results = await request();
+    io.emit("total distance", {
+      data: results
     });
-}
+    io.emit("timestamp", {
+      data: results
+    });
+    io.emit("traffic", {
+      data: results
+    });
+  }
 
-setInterval(sendData, 2000);
+  call();
+  setInterval(call, 10000);
+});
 
 http.listen(port, () => {
   console.log(`App running on port ${port}!`);
