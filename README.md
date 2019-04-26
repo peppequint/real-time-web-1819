@@ -1,11 +1,11 @@
 <div align="center">
-	<h1 align='center'>Real-time Web</h1>
-<!-- 	<img align='center' src="./public/src/img/screenshot-application.png" width="420" /> -->
+	<h1 align='center'>Traffic information Netherlands</h1>
+<img align='center' src="./public/assets/img/screenshot-application.png" width="420" />
 </div>
 <p align="center">
-	Real-time web application with AWNB API.
+	Real-time web application with the AWNB API.
 	<br>
-	<!-- <a href="#">Live demo</a> -->
+	<a href="#">Live demo</a>
 </p>
 <br>
 
@@ -52,7 +52,7 @@ The total length of the traffic jams is indicated on the y-axis and the time of 
 
 This overview shows the data life cycle of this application.
 
-![Data life cycle](./public/assets/img/data-life-cycle_prototype.png)
+![Data life cycle](./public/assets/img/data-life-cycle.png)
 
 ## API
 
@@ -177,15 +177,13 @@ This example also shows one road. But much less data and only data that is neede
 
 ## Status
 
-- [ ] Update data life cycle
-- [ ] Make simple UI as a start
+- [x] Update data life cycle
+- [x] Make simple UI as a start
+- [x] Data needs to be updated real-time
 - [ ] Implement D3 charts
-- [ ] Data needs to be updated real-time
-
-## Feedback
-
-I would like to have feedback of the data life cycle overview. I have not yet used visual colours to clarify this chart.
+- [ ] Implement different routes e.g. radars
 
 ## Sources
 
 - [ANWB Data](https://www.anwb.nl/feeds/gethf)
+- Big thanks to [Robin](https://github.com/RobinStut) for helping me out with life updating the data
