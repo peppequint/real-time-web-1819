@@ -28,18 +28,6 @@ app.get("/", async (req, res) => {
   }
 });
 
-app.post("/werkzaamheden", async (req, res) => {
-  try {
-    const data = await dataAnwb().then(render => {
-      res.render("pages/index", {
-        anwb: render
-      });
-    });
-  } catch (error) {
-    console.log(error);
-  }
-});
-
 function dataAnwb() {
   return new Promise(async (resolve, reject) => {
     try {
@@ -163,7 +151,7 @@ io.on("connection", async function(socket) {
   }
 
   call();
-  setInterval(call, 10000);
+  setInterval(call, 180000);
 });
 
 http.listen(port, () => {
