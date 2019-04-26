@@ -5,7 +5,7 @@
 <p align="center">
 	Real-time web application with the AWNB API.
 	<br>
-	<a href="#">Live demo</a>
+	<a href="https://real-time-web-1819-pq.herokuapp.com/">Live demo</a>
 </p>
 <br>
 
